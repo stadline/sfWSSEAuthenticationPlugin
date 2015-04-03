@@ -1,10 +1,9 @@
 sfWSSEAuthenticationPlugin
 ==========================
 
-This plugin aims to implement WSSE authentication for Symfony 1.
+This plugin aims to implement WSSE authentication for Symfony 1. **It uses sfGuardUser** to validate authentication username and password. In other words: you must create a sfGuardUser and use its username and encrypted password to generate WSSE credentials.
 
 ----------------------------------------------------------------
-
 
 Installation
 ------------
@@ -46,7 +45,7 @@ To activate the plugin, you need to change the filter responsible of the securit
     class: sfWsseSecurityFilter
   ```
 
-  * Additionally, you might turn of session storage to allow stateless operation. To do that you need to change the storage class in factories.yml.
+  * Additionally, you might turn of session storage to allow stateless operations. To do that you need to change the storage class in factories.yml.
 
   ```yaml
   all:
@@ -54,3 +53,9 @@ To activate the plugin, you need to change the filter responsible of the securit
       class: sfNoStorage
   ```
 
+----------------------------------------------------------------
+
+Helper task
+------------
+
+You can use the ```wsse:generate-credentials``` task to generate a valid WSSE UsernameToken.

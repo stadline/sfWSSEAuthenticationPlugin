@@ -58,4 +58,4 @@ To activate the plugin, you need to change the filter responsible of the securit
 Helper task
 ------------
 
-You can use the ```wsse:generate-credentials``` task to generate a valid WSSE UsernameToken.
+You can use the ```wsse:generate-credentials``` task to generate a valid WSSE UsernameToken and get the user encrypted password

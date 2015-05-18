@@ -52,13 +52,14 @@ class WsseGenerateCredentialsTask extends sfBaseTask
 
         $provider = new WsseProvider(null);
         $digest = $provider->generateDigest($nonce, $created, $secret);
-
-        echo sprintf(
+        
+        $this->logBlock(sprintf(">> User '%s', password '%s' ", $options['username'], $options['password']), "COMMENT");
+        $this->logBlock(sprintf(
             'UsernameToken Username="%s", PasswordDigest="%s", Nonce="%s", Created="%s"' . "\n",
             $options['username'],
             $digest,
             $nonce,
             $created
-        );
+        ), "INFO");
     }
 }

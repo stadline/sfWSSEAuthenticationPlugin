@@ -53,6 +53,14 @@ To activate the plugin, you need to change the filter responsible of the securit
       class: sfNoStorage
   ```
 
+  * You can also turn off the filter using environment parameters. To do that you need to edit the app.yml file.
+
+  ```yaml
+  test:
+    security:
+      enabled: false
+  ```
+
 ----------------------------------------------------------------
 
 Helper task

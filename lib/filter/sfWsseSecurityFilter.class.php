@@ -18,7 +18,7 @@ class sfWsseSecurityFilter extends sfFilter
      */
     public function execute($filterChain)
     {
-        if ($this->isFirstCall()) {
+        if ($this->isFirstCall() && sfConfig::get('app_security_enabled', true)) {
             $handler = new WsseHandler();
             $handler->execute($this->context);
         }

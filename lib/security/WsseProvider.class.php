@@ -39,10 +39,13 @@ class WsseProvider
         }
 
         // Validate nonce is unique within 5 minutes
-        if (file_exists($this->cacheDir . '/' . $nonce) && file_get_contents($this->cacheDir . '/' . $nonce) + $this->lifetime > time()) {
+		// Nonce can contain '/' that is not allowed in filename
+        // Nonce is md5 encrypted to prevent this problem
+		$cacheKey = md5($nonce);
+        if (file_exists($this->cacheDir . '/' . $cacheKey) && file_get_contents($this->cacheDir . '/' . $cacheKey) + $this->lifetime > time()) {
             throw new NonceExpiredException('Previously used nonce detected');
         }
-        file_put_contents($this->cacheDir . '/' . $nonce, strtotime($created));
+        file_put_contents($this->cacheDir . '/' . $cacheKey, strtotime($created));
 
         // Validate Secret
         $expected = $this->generateDigest($nonce, $created, $secret);

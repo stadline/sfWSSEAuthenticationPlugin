@@ -45,21 +45,7 @@ class WsseGenerateCredentialsTask extends sfBaseTask
             return $this->logSection('sfGuardUser', 'No user found matching password="' . $options['password'] . '"', null, 'ERROR');
         }
 
-        // generate authentication credentials
-        $nonce = sha1(openssl_random_pseudo_bytes(128));
-        $created = date_create('NOW')->format(DateTime::ISO8601);
-        $secret = $options['password'];
-
-        $provider = new WsseProvider(null);
-        $digest = $provider->generateDigest($nonce, $created, $secret);
-        
         $this->logBlock(sprintf(">> User '%s', password '%s' ", $options['username'], $options['password']), "COMMENT");
-        $this->logBlock(sprintf(
-            'UsernameToken Username="%s", PasswordDigest="%s", Nonce="%s", Created="%s"' . "\n",
-            $options['username'],
-            $digest,
-            $nonce,
-            $created
-        ), "INFO");
+        $this->logBlock(WsseHeaderGenerator::generateHeader($options['username'], $options['password']), "INFO");
     }
 }
